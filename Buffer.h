@@ -25,14 +25,14 @@ public:
     void ensureWriteableBytes(size_t len);          //确保缓冲区有足够的空间
     char* beginWrite();                             //可写char指针
     const char* beginWrite() const;                 //
-    void hasWritten() const;                        //写完数据后移动writeindex指针
+    void hasWritten(size_t len);                        //写完数据后移动writeindex指针
     ssize_t readFD(int fd,int* savedErrno);         //从套接字读到缓冲区
     ssize_t writeFD(int fd,int* savedErrno);        //从缓冲区写入套接字
     const char* findCRLF() const;                   //
     const char* findCRLF(const char* start) const;  //
 private:
-    char* begin();                      //返回缓冲区头指针
-    const char* begin() const;
+    char* _begin();                      //返回缓冲区头指针
+    const char* _begin() const;
     void makeSpace(size_t len);         //确保缓冲区有足够空间
 private:
     std::vector<char> buffer;
