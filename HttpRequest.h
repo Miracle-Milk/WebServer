@@ -54,7 +54,7 @@ public:
     std::string getPath() {return path;}                    //
     std::string getQuery() {return query;}                  //
     std::string getHeader(const std::string filed) const;   //
-    std::string getMothed() const;                          //
+    std::string getMethed() const;                          //
     bool keepAlive() const;                                 //是否是长连接
 
 
@@ -64,11 +64,20 @@ private:
     //设置HTTP方法
     bool setMethod(const char* begin,const char* end);
     //设置URL路径
-    void setPath(const char* begin,const char* end);
+    void setPath(const char* begin,const char* end)
+    {
+        std::string subpath;
+        subpath.assign(begin,end);
+        if(subpath =="/")
+            subpath = "/index.html";
+        this->path = "../www" + subpath;
+    }
     //设置URL参数
-    void setQuery(const char* begin,const char* end);
+    void setQuery(const char* begin,const char* end)
+    {this->query.assign(begin,end);}
     //设置HTTP版本
-    void setVersion(Version version);
+    void setVersion(Version version)
+    { this->version = version;}
     //增加报文头
     void addHeader(const char* start,const char* colon,const char* end);
 
